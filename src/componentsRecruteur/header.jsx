@@ -58,7 +58,7 @@ const Header = () => {
             <ul className="navbar-nav flex-row ms-auto align-items-center justify-content-end">
               <li className="nav-item dropdown">
                 <a className="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src={user?.image ? `http://localhost:5002/file/${user?.image}` : "../assets/images/logos/5.svg"} alt="Profil" width={35} height={35} className="rounded-circle" />
+                <img src={user?.image ? `${process.env.REACT_APP_BACKEND_URL}/file/${user?.image}` : "../assets/images/logos/5.svg"} alt="Profil" width={35} height={35} className="rounded-circle" />
 
 
                 </a>

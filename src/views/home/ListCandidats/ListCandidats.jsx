@@ -88,7 +88,7 @@ const ListCandidats = () => {
                 <td>{index + 1}</td>
                 <td>
                   <img
-                    src={item.image ? `http://localhost:5002/file/${item.image}` : "2.svg"}
+                   src={item.image ? `${process.env.REACT_APP_BACKEND_URL}/file/${item.image}` : "2.svg"}
                     className="img-fluid rounded-circle"
                     alt="profile"
                     style={{ width: "50px", height: "50px", objectFit: "cover" }}
@@ -123,7 +123,7 @@ const ListCandidats = () => {
           <Modal.Body>
             <div className="text-center mb-3">
             <img
-            src={selectedCandidat.image ? `http://localhost:5002/file/${selectedCandidat.image}` : "2.svg"}
+            src={selectedCandidat.image ? `${process.env.REACT_APP_BACKEND_URL}/file/${selectedCandidat.image}` : "2.svg"}
             alt={selectedCandidat.Nom || "Candidat"}
             className="img-fluid rounded-circle"
             style={{ width: "100px", height: "100px", objectFit: "cover" }}

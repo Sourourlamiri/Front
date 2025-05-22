@@ -81,7 +81,7 @@ const Offredetails = () => {
       
       try {
         // Récupérer les candidatures du candidat
-        const response = await axios.get(`http://localhost:5002/Candidat/${candidatId}`);
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/Candidat/${candidatId}`);
         const candidatures = response.data.getCandidat.Candidature || [];
         
         // Vérifier si l'une des candidatures est pour cette offre

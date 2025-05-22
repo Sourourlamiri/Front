@@ -15,7 +15,7 @@ const PageCategorie = () => {
 
     const fetchOffresByCategorie = async () => {
       try {
-        const response = await axios.get(`http://localhost:5002/categorie/${categorie}`);
+     const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/categorie/${categorie}`);
         setCategory(response.data.getCategorie);
       } catch (error) {
         console.error('Erreur de chargement:', error);

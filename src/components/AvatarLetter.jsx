@@ -20,7 +20,7 @@ import { renderAvatar } from '../utils/avatarUtils';
 const AvatarLetter = ({ 
   user, 
   size = 'small', 
-  baseUrl = 'http://localhost:5002/file/', 
+baseUrl = `${process.env.REACT_APP_BACKEND_URL}/file/`,
   className = '',
   style = {},
   width,

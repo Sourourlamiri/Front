@@ -6,13 +6,13 @@ const Payment = () => {
    const {id}=useParams()
    const handleCheckOut=async()=>{
     const stripe=await stripePromise;
-    try {
-        const response=await fetch(`http://localhost:5002/payement/create-checkout-session/${id}`,{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            }
-        })
+try {
+    const response=await fetch(`${process.env.REACT_APP_BACKEND_URL}/payement/create-checkout-session/${id}`,{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        }
+    })
         const session=await response.json()
         if(session.id){
             const result=await stripe.redirectToCheckout({sessionId:session.id});

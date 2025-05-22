@@ -469,7 +469,7 @@ const MesCandidatures = () => {
                                   title="Voir le CV"
                                   onClick={() =>
                                     window.open(
-                                      `http://localhost:5002/cv/${candidature.Cv}`,
+                                    `${process.env.REACT_APP_BACKEND_URL}/cv/${candidature.Cv}`,
                                       "_blank"
                                     )
                                   }

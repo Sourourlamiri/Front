@@ -292,7 +292,7 @@ const ListeCandidatsRecruteur = () => {
                             </td>
                             <td className="px-4 py-3">
                               <a
-                                href={`http://localhost:5002/file/${cand?.Cv}`}
+                               href={`${process.env.REACT_APP_BACKEND_URL}/file/${cand?.Cv}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="btn btn-sm btn-outline-primary rounded-pill"
@@ -363,7 +363,7 @@ const ListeCandidatsRecruteur = () => {
                           </td>
                           <td className="px-4 py-3">
                             <a
-                              href={`http://localhost:5002/file/${candidat.getCandidature.Cv}`}
+                              href={`${process.env.REACT_APP_BACKEND_URL}/file/${candidat.getCandidature.Cv}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="btn btn-sm btn-outline-primary rounded-pill"

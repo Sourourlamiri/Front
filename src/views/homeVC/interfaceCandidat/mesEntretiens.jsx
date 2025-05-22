@@ -143,7 +143,7 @@ const MesEntretiens = () => {
   // Fallback method to fetch interviews from candidatures
   const fetchEntretiensFromCandidatures = () => {
     axios
-      .get(`http://localhost:5002/Candidat/${candidatId}`)
+     .get(`${process.env.REACT_APP_BACKEND_URL}/Candidat/${candidatId}`)
       .then((response) => {
         const candidatureData = response.data.getCandidat.Candidature || [];
 

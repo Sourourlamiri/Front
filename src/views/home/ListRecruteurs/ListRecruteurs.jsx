@@ -169,11 +169,11 @@ const ListeRecruteurs = () => {
                 <td>{index + 1}</td>
                 <td>
                   <img
-                    src={
-                      item.image
-                        ? `http://localhost:5002/file/${item.image}`
-                        : "2.svg"
-                    }
+                      src={
+                        item.image
+                          ? `${process.env.REACT_APP_BACKEND_URL}/file/${item.image}`
+                          : "2.svg"
+                      }
                     className="img-fluid rounded-circle"
                     alt="profile"
                     style={{
@@ -226,11 +226,11 @@ const ListeRecruteurs = () => {
           <Modal.Body>
             <div className="text-center mb-3">
               <img
-                src={
-                  selectedRecruteur.image
-                    ? `http://localhost:5002/file/${selectedRecruteur.image}`
-                    : "2.svg"
-                }
+                    src={
+                      selectedRecruteur.image
+                        ? `${process.env.REACT_APP_BACKEND_URL}/file/${selectedRecruteur.image}`
+                        : "2.svg"
+                    }
                 alt={selectedRecruteur.Nom || "Recruteur"}
                 className="img-fluid rounded-circle"
                 style={{ width: "100px", height: "100px", objectFit: "cover" }}
