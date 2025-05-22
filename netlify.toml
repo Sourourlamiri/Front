@@ -4,7 +4,8 @@
 
 [build.environment]
   REACT_APP_BACKEND_URL = "https://backend-imuv.onrender.com"
-
+     CI = "false"
+     
 [[redirects]]
   from = "/*"
   to = "/index.html"
