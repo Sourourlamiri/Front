@@ -1,0 +1,160 @@
+/* 🌐 Style global */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8;
+}
+
+/* 📌 Conteneur principal */
+.container {
+  max-width: 400px;  
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 🟣 Titres */
+h1, h2 {
+  color: #6a1b9a;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+/* 📋 Formulaire */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  font-weight: 600;
+  color: #6a1b9a;
+  font-size: 14px;
+}
+
+/* ✏️ Champs de saisie */
+input, textarea, select {
+  padding: 6px;  
+  font-size: 13px;  
+  border-radius: 5px; 
+  border: 1px solid #6a1b9a; 
+  width: 100%; 
+  box-sizing: border-box;
+  transition: 0.3s;
+  height: 35px; 
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #8e24aa;
+  box-shadow: 0 0 4px rgba(142, 36, 170, 0.3);
+}
+
+
+textarea {
+  height: 60px; 
+  resize: none; 
+}
+
+
+button {
+  background-color: #8e24aa;
+  color: white;
+  padding: 8px 12px;  
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #7b1fa2;
+  transform: scale(1.05); 
+}
+
+/* 🚫 Bouton désactivé */
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  background-color: #ccc;
+}
+
+/* 📊 Tableau */
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #8e24aa;
+  color: white;
+  font-weight: 600;
+}
+
+tr:nth-child(even) {
+  background-color: #f1e6f0;
+}
+
+tr:hover {
+  background-color: #f3e0f7;
+}
+
+/* 🛑 Message d'erreur */
+.error {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Buttons in confirmation modal */
+.purple-border {
+  color: #6f42c1;
+  border: 2px solid #6f42c1;
+  background-color: white;
+  font-weight: bold;
+}
+.purple-border:hover {
+  background-color: #6f42c1;
+  color: white;
+}
+
+.purple-delete {
+  background-color: #e0b3ff;
+  color: #6f42c1;
+  border: none;
+  font-weight: bold;
+}
+.purple-delete:hover {
+  background-color: #d48bff;
+  color: white;
+}
+.question-text {
+  display: inline;  /* Ensures the question is in one line */
+}
+
+.question-mark {
+  font-weight: bold;  /* You can style it to make it stand out if needed */
+}

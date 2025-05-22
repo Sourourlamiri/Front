@@ -1,0 +1,190 @@
+.register-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .register-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.08),
+      0 4px 8px rgba(0, 0, 0, 0.02);
+    padding: 48px;
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .register-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 12px 40px rgba(0, 0, 0, 0.12),
+      0 6px 12px rgba(0, 0, 0, 0.04);
+  }
+  
+  .register-card h2 {
+    color: #2d3748;
+    margin-bottom: 16px;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  
+  .login-link {
+    color: #718096;
+    margin-bottom: 32px;
+    display: block;
+    font-size: 15px;
+  }
+  
+  .login-link span {
+    color:#552b88;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  
+  .login-link span:hover {
+    color:#552b88;
+  }
+  
+  .login-link span::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color:#552b88;
+    transition: width 0.3s ease;
+  }
+  
+  .login-link span:hover::after {
+    width: 100%;
+  }
+  
+  .role-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 8px;
+  }
+  
+  .role-button {
+    padding: 16px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 80%; /* Ajout: Largeur réduite des boutons */
+    margin: 0 auto; /* Centrage des boutons */
+  }
+  
+  .role-button.candidate {
+    background-color:#552b88;
+    color: white;
+    box-shadow: 0 4px 6px rgba(78, 115, 223, 0.2);
+  }
+  
+  .role-button.employer {
+    background-color:#552b88;
+    color: white;
+    border: 1px solid#552b88;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .role-button.candidate:hover {
+    background-color: #552b88;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(78, 115, 223, 0.25);
+  }
+  
+  .role-button.employer:hover {
+    background-color:#552b88;
+    border-color:#552b88;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* Nouveau style pour les inputs */
+  .register-card input {
+    width: 70%; /* Largeur réduite */
+    min-width: 200px; /* Largeur minimale */
+    margin: 0 auto; /* Centrage */
+    display: block; /* Pour que le margin auto fonctionne */
+  }
+  
+  /* Effets au clic */
+  .role-button:active {
+    transform: translateY(1px);
+  }
+  
+  /* Icônes (optionnel) */
+  .role-button::before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+  }
+  
+  .role-button.candidate::before {
+    content: '\f007'; /* icône utilisateur */
+  }
+  
+  .role-button.employer::before {
+    content: '\f0b1'; /* icône entreprise */
+  }
+  
+  /* Animation de chargement (optionnel) */
+  @keyframes pulse {
+    9% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+  }
+  
+  .loading {
+    animation: pulse 1.5s infinite;
+  }
+  
+  /* INPUTS REDUITS - Version définitive */
+  .register-card .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .register-card .form-group input {
+    width: 65%;
+    min-width: 250px;
+    max-width: 300px;
+    margin: 5px auto 15px;
+    padding: 10px 15px;
+    border: 1px solid #552b88;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+  
+  .register-card .form-group input:focus {
+    border-color: #552b88;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(78, 115, 223, 0.2);
+  }
+  
+  /* Mobile */
+  @media (max-width: 640px) {
+    .register-card .form-group input {
+      width: 90%;
+      min-width: 200px;
+    }
+  }

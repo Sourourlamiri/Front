@@ -1,0 +1,58 @@
+
+.changer-mdp-container {
+  max-width: 900px;
+  margin: 30px auto;
+}
+
+
+.changer-mdp-card {
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+  background: #faf7ff; 
+  border: none;
+}
+
+
+.card-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #5e3b76; 
+}
+
+
+.form-control {
+  border-radius: 8px;
+  padding: 10px;
+  border: 1px solid #dcd6f7; 
+  transition: all 0.3s ease;
+}
+
+
+.form-control:focus {
+  border-color: #5e3b76; 
+  box-shadow: 0 0 5px rgba(94, 59, 118, 0.5);
+}
+
+
+.btn-primary {
+  background: #7d5ba6; 
+  border: none;
+  transition: background 0.3s ease;
+  color: #fff;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.btn-primary:hover {
+  background: #5e3b76; 
+}
+
+
+.alert-info {
+  background: #ebe4ff; 
+  color: #5e3b76;
+  border: none;
+}

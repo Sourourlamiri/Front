@@ -1,0 +1,9 @@
+.btn-outline-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-outline-secondary svg {
+    font-size: 1.2rem;
+    color: black; 
+}

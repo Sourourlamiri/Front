@@ -1,0 +1,75 @@
+.btn-deconnexion {
+    background-color: rgba(245, 240, 255, 0.6) !important; 
+    border-color: rgba(245, 240, 255, 0.6) !important;
+    color: #6a0dad !important; 
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .btn-deconnexion:hover {
+    background-color: rgba(245, 240, 255, 0.8) !important;
+    border-color: rgba(245, 240, 255, 0.8) !important;
+    color: #501080 !important;
+  }
+
+/* Styles de base */
+.app-header {
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+/* Mode sombre */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode .app-header {
+  background-color: #1e1e1e;
+  border-bottom: 1px solid #333;
+}
+
+body.dark-mode .navbar-light .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+body.dark-mode .dropdown-menu {
+  background-color: #2d2d2d;
+  border: 1px solid #444;
+}
+
+body.dark-mode .dropdown-item {
+  color: #e0e0e0;
+}
+
+body.dark-mode .dropdown-item:hover {
+  background-color: #3a3a3a;
+  color: #ffffff;
+}
+
+/* Ajoutez ces styles pour le modal en mode sombre */
+body.dark-mode .modal-content {
+  background-color: #2d2d2d;
+  color: #e0e0e0;
+}
+
+body.dark-mode .modal-header {
+  border-bottom: 1px solid #444;
+}
+
+body.dark-mode .modal-footer {
+  border-top: 1px solid #444;
+}
+.card {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.table {
+  color: var(--text-primary);
+  background-color: var(--bg-secondary);
+}
+
+.table th, .table td {
+  border-color: var(--border-color);
+}
