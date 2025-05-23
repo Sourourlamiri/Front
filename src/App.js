@@ -214,7 +214,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/motdepasseoublie" element={<Motpasseoublié />} />
         <Route
-          path="/renitialisermotdepasse/:token"
+          path="renitialisermotdepasse/:token"
           element={<Rénitialisermotpasse />}
         />
       </Routes>
