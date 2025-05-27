@@ -61,8 +61,8 @@ const Offredetails = () => {
         }
         
         // Ensure recruiter has proper format for AvatarLetter
-        if (offerData.recruteur && !offerData.recruteur.nom && offerData.recruteur.Nom) {
-          offerData.recruteur.nom = offerData.recruteur.Nom;
+        if (offerData.recruteur && !offerData.recruteur.NomEntreprise && offerData.recruteur.NomEntreprise) {
+          offerData.recruteur.NomEntreprise = offerData.recruteur.NomEntreprise;
         }
         
         setOffre(offerData);
@@ -206,7 +206,7 @@ const Offredetails = () => {
   // Get recruiter name for display
   const getRecruiterName = (recruiter) => {
     if (!recruiter) return 'Non spécifié';
-    return recruiter.Nom || recruiter.nom || recruiter.name || 'Entreprise';
+    return recruiter.NomEntreprise || recruiter.NomEntreprise || recruiter.name || 'Entreprise';
   };
 
   // Get category name for display

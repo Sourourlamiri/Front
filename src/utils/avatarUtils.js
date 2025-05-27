@@ -1,9 +1,9 @@
 /**
- * Utility functions for avatar generation
+ *utilites fonction pour la gestion des avatars
  */
 
 /**
- * Generates a color based on the user's name
+ *genere un code couleur hexadécimal pour l'avatar d'un utilisateur
  * @param {string} name - The user's name
  * @returns {string} - A hex color code
  */
@@ -109,24 +109,3 @@ export const renderAvatar = (user, baseUrl, size = 'small') => {
   };
 };
 
-/**
- * Usage example in React component:
- * 
- * import { renderAvatar } from '../utils/avatarUtils';
- * 
- * const MyComponent = ({ user }) => {
- *   const avatar = renderAvatar(user, 'http://localhost:5002/file/');
- *   
- *   return (
- *     <div>
- *       {avatar.type === 'image' ? (
- *         <img src={avatar.src} alt={avatar.alt} className={avatar.className} />
- *       ) : (
- *         <div className={avatar.className} style={{ backgroundColor: avatar.color }}>
- *           {avatar.initial}
- *         </div>
- *       )}
- *     </div>
- *   );
- * };
- */ 

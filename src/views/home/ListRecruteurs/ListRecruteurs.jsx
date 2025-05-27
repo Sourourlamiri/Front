@@ -120,12 +120,12 @@ const ListeRecruteurs = () => {
     }
   };
 
-  const filtereData = data.filter(
-    (item) =>
-      item.Nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.Adresse.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.Email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filtereData = data.filter((item) =>
+  (item.Nom || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+  (item.Adresse || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+  (item.Email || "").toLowerCase().includes(searchTerm.toLowerCase())
+);
+
 
   useEffect(() => {
     getAllRecruteur();

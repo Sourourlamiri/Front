@@ -3,7 +3,7 @@
  * @param {string|Date} date - Date to format
  * @returns {string|null} Formatted date string or null if invalid
  */
-export const formatDateForAPI = (date) => {
+export const formatDateForAPI = (date) => { //verfier si la date est valide selon le format YYYY-MM-DD back-end
   if (!date) return null;
   
   try {
@@ -43,7 +43,7 @@ export const formatDateForDisplay = (date) => {
 };
 
 /**
- * Validates if a date string is valid and not in the future
+ * Verfier si une date est valide
  * @param {string} dateStr - Date string to validate
  * @param {boolean} allowFuture - Allow future dates
  * @returns {boolean} True if valid, false otherwise

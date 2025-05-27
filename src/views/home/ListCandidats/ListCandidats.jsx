@@ -41,13 +41,14 @@ const ListCandidats = () => {
     }
   };
 
-  const filtereData = data.filter((item) =>
+  const filtereData = data.filter((item) => // Filtrer les candidats en fonction du terme de recherche
     item.Nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
     item.Adresse.toLowerCase().includes(searchTerm.toLowerCase()) ||
     item.Email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  useEffect(() => {
+  useEffect(() => { // Utiliser useEffect pour récupérer la liste des candidats au chargement du composant
+    // Appel de la fonction pour récupérer tous les candidats
     getAllCandidat();
   }, []);
 
@@ -114,7 +115,7 @@ const ListCandidats = () => {
   </table>
 </div>
 
-      
+      // Modale pour afficher les détails du candidat sélectionné
       {selectedCandidat && (
         <Modal show={showModal} onHide={() => setShowModal(false)}>
           <Modal.Header closeButton>

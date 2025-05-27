@@ -1,4 +1,4 @@
-/* تصميم الحاوية الرئيسية مثل صفحة تسجيل الدخول */
+
 .reset-container {
     max-width: 450px;
     margin: 150px auto;
@@ -8,15 +8,14 @@
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
   }
   
-  /* تصميم البطاقة مثل تسجيل الدخول */
+
   .reset-card {
     border-radius: 12px;
     box-shadow: none;
     padding: 0;
     background: transparent;
   }
-  
-  /* تصميم العنوان */
+
   .reset-title {
     text-align: center;
     font-size: 24px;
@@ -29,7 +28,7 @@
     width: 100%;
   }
   
-  /* تنسيق المدخلات */
+ 
   .form-control {
     border-radius: 8px;
     padding: 10px;
@@ -43,7 +42,7 @@
     box-shadow: 0 0 5px rgba(94, 59, 118, 0.5);
   }
   
-  /* زر الإرسال */
+
   .btn-primary {
     background: #7d5ba6;
     border: none;
@@ -59,7 +58,7 @@
     background: #512a8a;
   }
   
-  /* نصوص وروابط */
+
   .text-primary {
     color: #6a0dad !important;
     font-weight: bold;
@@ -69,10 +68,10 @@
   .text-primary:hover {
     color: #512a8a !important;
   }
-  /* توسيط الصورة */
+
 .reset-logo {
     display: block;
-    margin: 0 auto 20px; /* توسيط الصورة وإضافة هامش سفلي */
-    width: 120px; /* تعديل حجم الصورة إذا لزم الأمر */
+    margin: 0 auto 20px; 
+    width: 10px;
   }
   

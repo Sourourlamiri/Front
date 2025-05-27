@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import apiRecruteurinterface from '../../../service/apiRecruteurinterface';
+import SnackbarAlert from '../../../components/SnackbarAlert'; // Importer le composant SnackbarAlert
 
 
 const Profilrecruteur = () => {
   const [data, setData] = useState({});
+  const[SnackbarState, setSnackbar] = useState({ //  SnackbarAlert
+    open: false,
+    message: '',
+    severity: 'success',
+  });
+
+
+
 
   //  Gestion du changement des inputs
   const onChangeHandler = (e) => {
@@ -16,6 +25,9 @@ const Profilrecruteur = () => {
   const parseUser = JSON.parse(user);
   console.log('data localstorage',user)
 
+
+
+
   // Récupérer les informations du recruteur
   const getInformation = async (id) => {
     try {
@@ -24,8 +36,21 @@ const Profilrecruteur = () => {
       console.log("Les informations de recruteur:", response.data);
     } catch (error) {
       console.log("Erreur lors de la récupération des données:", error);
+      setSnackbar({
+        open: true,
+        message: 'Erreur lors de la récupération des données',
+        severity: 'error',
+      }); 
     }
   };
+
+
+//   SnackbarAlert
+const handleCloseSnackbar = () => {
+  setSnackbar({ ...SnackbarState, open: false });
+};
+
+
 
   useEffect(() => {
     if (parseUser && parseUser.utilisateur && parseUser.utilisateur._id) {
@@ -40,9 +65,18 @@ const Profilrecruteur = () => {
     try {
       const response = await apiRecruteurinterface.updateRecruteur(parseUser.utilisateur._id, data);
       console.log('Les données ont été modifiées:', response.data);
-      alert("Profil modifié avec succès !");
+      setSnackbar({
+        open: true,
+        message:"Profil modifié avec succès",
+        severity: 'success',
+      });
     } catch (error) {
       console.error("Erreur lors de la mise à jour:", error);
+      setSnackbar({
+        open: true,
+        message: 'Erreur lors de la mise à jour',
+        severity: 'error',
+      });
     }
   };
 
@@ -62,7 +96,7 @@ const Profilrecruteur = () => {
                     className="form-control" 
                     id="nom" 
                     name="Nom"  
-                    value={data?.NomEntreprise} 
+                    value={data?.NomEntreprise || ""} 
                     onChange={onChangeHandler} 
                   />
                 </div>
@@ -102,6 +136,21 @@ const Profilrecruteur = () => {
                     onChange={onChangeHandler} 
                   />
                 </div>
+
+
+
+                 <div className="mb-3">
+                  <label htmlFor="telephone" className="form-label">À  propos de </label> 
+                  <input 
+                    type="text" 
+                    className="form-control" 
+                    id=" description" 
+                    name=" description"  
+                    value={data?. description || ""} 
+                    onChange={onChangeHandler} 
+                  />
+                </div>
+                     
                 <button type="submit" className="btn btn-primary">🖉 Modifier Profil</button>
 
 
@@ -111,7 +160,15 @@ const Profilrecruteur = () => {
           </div>
         </div>
       </div>
+
+      <SnackbarAlert
+        open={SnackbarState.open}
+        message={SnackbarState.message}
+        severity={SnackbarState.severity}
+        onClose={handleCloseSnackbar} // Pass the close function to SnackbarAlert
+      />
     </div>
+  
   );
 };
 

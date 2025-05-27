@@ -63,8 +63,15 @@ const ListeCandidatsRecruteur = () => {
           }
         })
       );
+      console.log('Candidatures récupérées:', candidatures);
+      // Remove duplicates by cv_id
+      const candidaturesUniques = candidatures.filter(
+        (item, index, self) =>
+          index === self.findIndex((c) =>  c.candidatDetails!=null && c.candidatDetails?.Email === item.candidatDetails?.Email)
+      );
+      console.log('Candidatures récupérées:', candidaturesUniques);
 
-      setCandidats(candidatures);
+      setCandidats(candidaturesUniques);
     } catch (error) {
       console.error("Erreur lors de la récupération des candidats:", error);
     } finally {
@@ -279,7 +286,7 @@ const ListeCandidatsRecruteur = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {offre.Candidature.map((cand, index) => {
+                      {offre.Candidature.filter(cand => cand?.Candidat?.[0]!=null).map((cand, index) => {
                         const candidat = cand?.Candidat?.[0];
                         return (
                           <tr key={index} className="border-bottom">
@@ -292,7 +299,7 @@ const ListeCandidatsRecruteur = () => {
                             </td>
                             <td className="px-4 py-3">
                               <a
-                               href={`${process.env.REACT_APP_BACKEND_URL}/file/${cand?.Cv}`}
+                                href={`${process.env.REACT_APP_BACKEND_URL}/file/${cand?.Cv}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="btn btn-sm btn-outline-primary rounded-pill"

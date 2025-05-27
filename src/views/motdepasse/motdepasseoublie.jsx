@@ -59,7 +59,7 @@ const Motpasseoublié = () => {
       <div className="login-card">
         <div className="card-body">
           <div className="text-center mb-3">
-            <img src="../assets/images/logos/4.svg" width="40" alt="Logo" />
+            <img src="../assets/images/logos/4.svg" width="50%" alt="Logo" />
           </div>
           <h5 className="card-title">Mot de passe oublié</h5>
           <p className="subtitle text-center">

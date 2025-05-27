@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { renderAvatar } from '../utils/avatarUtils';
 
 /**
- * A reusable component for displaying user avatars, with fallback to a letter avatar
- * when no image is available.
+ * AvatarLetter component displays a user's avatar as an image or a letter-based avatar.
+ * It supports different sizes and custom dimensions, and provides a fallback letter avatar
+ * if no user image is available.
  * 
  * @param {Object} props Component props
  * @param {Object} props.user User object containing name and image information
@@ -27,7 +28,7 @@ baseUrl = `${process.env.REACT_APP_BACKEND_URL}/file/`,
   height,
   customSize,
 }) => {
-  // Define dimensions based on props or defaults
+  // Function to get dimensions based on custom size or width/height props
   const getDimensions = () => {
     if (customSize) {
       return { width: customSize, height: customSize };
@@ -41,8 +42,9 @@ baseUrl = `${process.env.REACT_APP_BACKEND_URL}/file/`,
     return {};
   };
 
-  // If no user is provided, render a default avatar
-  if (!user) {
+
+  if (!user) { // utiliser si l'utilisateur n'est pas défini
+    // If no user is provided, return a default letter avatar
     return (
       <div 
         className={`letter-avatar ${size === 'large' ? 'letter-avatar-large' : ''} ${className}`}
@@ -57,7 +59,7 @@ baseUrl = `${process.env.REACT_APP_BACKEND_URL}/file/`,
     );
   }
 
-  // Get avatar rendering information
+  // get the avatar details using the utility function
   const avatar = renderAvatar(user, baseUrl, size);
 
   // Render either an image or a letter avatar

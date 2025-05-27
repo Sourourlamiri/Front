@@ -1,161 +1,223 @@
-import React, { useState } from 'react'
-import auth from '../../service/auth'
-import { useNavigate } from 'react-router-dom'
-import SnackbarAlert from '../../components/SnackbarAlert'
+import React, { useState } from 'react';
+import auth from '../../service/auth';
+import { useNavigate } from 'react-router-dom';
+import SnackbarAlert from '../../components/SnackbarAlert';
 
 const Register = () => {
-  const [data, setData] = useState({ role: "recruteur" })
-  const [snackbar, setSnackbar] = useState({
-    open: false,
-    message: "",
-    severity: "info"
-  });
-  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState({ role: "recruteur" });
+  const [errors, setErrors] = useState({});
+  const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "info" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
-  // Liste des gouvernorats tunisiens
   const tunisianGovernorates = [
-    "Tunis", "Sfax", "Sousse", "Kairouan", "Bizerte", "Gabès",
-    "Ariana", "Gafsa", "Monastir", "Ben Arous", "Kasserine",
-    "Médenine", "Nabeul", "Tataouine", "Béja", "Jendouba",
-    "Le Kef", "Mahdia", "Siliana", "Zaghouan", "Kebili",
-    "Sidi Bouzid", "Tozeur", "Manouba"
+    "Ariana", "Béja", "Ben Arous", "Bizerte", "Gabès", "Gafsa", "Jendouba", "Kairouan", "Kasserine", "Kebili",
+    "Le Kef", "Mahdia", "Manouba", "Médenine", "Monastir", "Nabeul", "Sfax", "Sidi Bouzid", "Siliana", "Sousse",
+    "Tataouine", "Tozeur", "Tunis", "Zaghouan"
   ].sort();
 
-  const OnChaneHandler = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value })
-  }
+  // Composant pour afficher les labels avec étoile rouge
+  const RequiredLabel = ({ children }) => (
+    <>
+      {children} <span className="text-danger">*</span>
+    </>
+  );
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData({...data, [name]: value });
+    if (errors[name]) setErrors({...errors, [name]: null});
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file && !file.type.match('image.*')) {
+      setErrors({...errors, image: "Veuillez sélectionner une image valide"});
+    } else {
+      setData({ ...data, image: file });
+      setErrors({...errors, image: null});
+    }
+  };
 
   const handleSnackbarClose = () => {
     setSnackbar({ ...snackbar, open: false });
   };
 
-  const showSnackbar = (message, severity = "info") => {
-    setSnackbar({
-      open: true,
-      message,
-      severity
-    });
-  };
+  const validateForm = () => {
+    const newErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9]{8,}$/;
 
-  const onChangeimageHandler = (e) => {
-    const file = e.target.files[0];
-    setData({ ...data, image: file });
+    if (!data.NomEntreprise?.trim()) newErrors.NomEntreprise = "Nom de l'entreprise requis";
+    if (!data.Email?.trim()) {
+      newErrors.Email = "Email requis";
+    } else if (!emailRegex.test(data.Email)) {
+      newErrors.Email = "Format d'email invalide";
+    }
+    if (!data.Adresse?.trim()) newErrors.Adresse = "Adresse requise";
+    if (!data.Telephone?.trim()) {
+      newErrors.Telephone = "Téléphone requis";
+    } else if (!phoneRegex.test(data.Telephone)) {
+      newErrors.Telephone = "Doit contenir au moins 8 chiffres";
+    }
+    if (!data.MotDePasse) {
+      newErrors.MotDePasse = "Mot de passe requis";
+    } else if (data.MotDePasse.length < 5) {
+      newErrors.MotDePasse = "5 caractères minimum requis";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
-  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsLoading(true);
+    e.preventDefault();
+    if (!validateForm()) return;
 
-    const { NomEntreprise, Telephone, Email, MotDePasse, Adresse, image } = data
+    setIsSubmitting(true);
     try {
       const formData = new FormData();
-      formData.append("NomEntreprise", NomEntreprise);
-      formData.append("Telephone", Telephone);
-      formData.append("Email", Email);
-      formData.append("MotDePasse", MotDePasse);
-      formData.append("Adresse", Adresse);
+      formData.append("NomEntreprise", data.NomEntreprise);
+      formData.append("Email", data.Email);
+      formData.append("Adresse", data.Adresse);
+      formData.append("Telephone", data.Telephone);
+      formData.append("MotDePasse", data.MotDePasse);
       formData.append("role", "recruteur");
-      if (image) {
-        formData.append("image", image);
-      }
+      if (data.image) formData.append("image", data.image);
 
-      let response = await auth.createrecruteur(formData);
+      await auth.createrecruteur(formData);
+      setSnackbar({ open: true, message: "Recruteur créé avec succès", severity: "success" });
 
-      // Show success message
-      showSnackbar('Recruteur créé avec succès. Redirection vers la page de connexion...', 'success');
-
-      // Navigate after a small delay to show the success message
       setTimeout(() => {
         navigate('/login');
       }, 2000);
-
-      console.log('recruteur est crée', response.data)
     } catch (error) {
-      showSnackbar('Erreur lors de la création du compte', 'error');
-      console.log('Erreur lors de la creation', error)
+      setSnackbar({ open: true, message: "Erreur lors de la création du compte", severity: "error" });
+      console.error(error);
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
-  }
-
+  };
 
   return (
-    <div>
-      <div className="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
-        <div className="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
-          <div className="d-flex align-items-center justify-content-center w-100">
-            <div className="row justify-content-center w-100">
-              <div className="col-md-8 col-lg-6 col-xxl-3">
-                <div className="card mb-0">
-                  <div className="card-body">
-                    <a href="./index.html" className="text-nowrap logo-img text-center d-block py-3 w-100">
-                      <img src="../assets/images/logos/4.svg" width={120} alt="logo" />
-                    </a>
-                    <p className="text-center">S'inscrire comme recruteur </p>
-
-                    <form onSubmit={handleSubmit}>
-
-                      <div className="mb-3">
-                        <label htmlFor="exampleInputtext1" className="form-label">NomEntreprise</label>
-                        <input type="text" name='NomEntreprise' onChange={OnChaneHandler} className="form-control" id="exampleInputtext1" aria-describedby="textHelp" required />
-                      </div>
-
-                      <div className="mb-4">
-                        <label htmlFor="exampleInputPassword1" className="form-label">Email</label>
-                        <input type="email" name='Email' onChange={OnChaneHandler} className="form-control" id="exampleInputPassword1" required />
-                      </div>
-                      <div className="mb-4">
-                        <label htmlFor="gouvernorat" className="form-label">Gouvernorat</label>
-                        <select name="Adresse" onChange={OnChaneHandler} className="form-select" id="gouvernorat" required>
-                          <option value="">Sélectionnez un gouvernorat</option>
-                          {tunisianGovernorates.map((governorate, index) => (
-                            <option key={index} value={governorate}>{governorate}</option>
-                          ))}
-                        </select>
-                      </div>
-                      <div className="mb-4">
-                        <label htmlFor="exampleInputPassword1" className="form-label">Téléphone</label>
-                        <input type="number" name='Telephone' onChange={OnChaneHandler} className="form-control" id="exampleInputPassword1" required />
-                      </div>
-                      <div className="mb-4">
-                        <label htmlFor="exampleInputPassword1" className="form-label">MotDePasse</label>
-                        <input type="password" name='MotDePasse' onChange={OnChaneHandler} className="form-control" id="exampleInputPassword1" required />
-                      </div>
-
-
-                      <div className="mb-3">
-                        <label className="form-label">Photo de profil</label>
-                        <input type="file" name="image" onChange={onChangeimageHandler} className="form-control" accept="image/*" />
-                      </div>
-
-                      <div className="d-flex align-items-center justify-content-center">
-                        <button
-                          type='submit'
-                          className="text-primary fw-bold ms-2"
-                          disabled={isLoading}
-                        >
-                          {isLoading ? "Inscription en cours..." : "S'inscrire"}
-                        </button>
-                      </div>
-                    </form>
+    <div className="min-vh-100 d-flex align-items-center justify-content-center p-3" style={{ backgroundColor: '#f8f9fa' }}>
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-lg-10 col-xl-8">
+            <div className="card shadow-sm border-0 overflow-hidden">
+              <div className="row g-0">
+                {/* Left side - Welcome message */}
+                <div className="col-md-5 d-none d-md-flex" style={{ backgroundColor: '#552b88' }}>
+                  <div className="d-flex flex-column justify-content-center p-4 text-white text-center">
+                    <h3 className="fw-bold mb-3">Bienvenue !</h3>
+                    <p className="mb-0">Créez votre compte recruteur en quelques clics</p>
                   </div>
+                </div>
+
+                {/* Right side - Form */}
+                <div className="col-md-7 bg-white p-4">
+                  <h4 className="fw-bold text-center mb-4" style={{ color: '#552b88' }}>Inscription Recruteur</h4>
+                  <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                      <label><RequiredLabel>Nom de l'entreprise</RequiredLabel></label>
+                      <input 
+                        type="text" 
+                        name="NomEntreprise" 
+                        onChange={handleChange} 
+                        className={`form-control ${errors.NomEntreprise ? 'is-invalid' : ''}`} 
+                      />
+                      {errors.NomEntreprise && <div className="invalid-feedback">{errors.NomEntreprise}</div>}
+                    </div>
+
+                    <div className="mb-3">
+                      <label><RequiredLabel>Email</RequiredLabel></label>
+                      <input 
+                        type="email" 
+                        name="Email" 
+                        onChange={handleChange} 
+                        className={`form-control ${errors.Email ? 'is-invalid' : ''}`} 
+                      />
+                      {errors.Email && <div className="invalid-feedback">{errors.Email}</div>}
+                    </div>
+
+                    <div className="mb-3">
+                      <label><RequiredLabel>Gouvernorat</RequiredLabel></label>
+                      <select 
+                        name="Adresse" 
+                        onChange={handleChange} 
+                        className={`form-select ${errors.Adresse ? 'is-invalid' : ''}`}
+                      >
+                        <option value="">Sélectionnez un gouvernorat</option>
+                        {tunisianGovernorates.map((gov, idx) => (
+                          <option key={idx} value={gov}>{gov}</option>
+                        ))}
+                      </select>
+                      {errors.Adresse && <div className="invalid-feedback">{errors.Adresse}</div>}
+                    </div>
+
+                    <div className="mb-3">
+                      <label><RequiredLabel>Téléphone</RequiredLabel></label>
+                      <input 
+                        type="text" 
+                        name="Telephone" 
+                        onChange={handleChange} 
+                        className={`form-control ${errors.Telephone ? 'is-invalid' : ''}`} 
+                      />
+                      {errors.Telephone && <div className="invalid-feedback">{errors.Telephone}</div>}
+                    </div>
+
+                    <div className="mb-3">
+                      <label><RequiredLabel>Mot de passe</RequiredLabel></label>
+                      <input 
+                        type="password" 
+                        name="MotDePasse" 
+                        onChange={handleChange} 
+                        className={`form-control ${errors.MotDePasse ? 'is-invalid' : ''}`} 
+                      />
+                      {errors.MotDePasse && <div className="invalid-feedback">{errors.MotDePasse}</div>}
+                    </div>
+
+                    <div className="mb-3">
+                      <label>Photo de profil</label>
+                      <input 
+                        type="file" 
+                        name="image" 
+                        accept="image/*" 
+                        onChange={handleImageChange} 
+                        className={`form-control ${errors.image ? 'is-invalid' : ''}`} 
+                      />
+                      {errors.image && <div className="invalid-feedback">{errors.image}</div>}
+                    </div>
+
+                    <div className="mb-3 text-muted small">
+                      <span className="text-danger">*</span> Champs obligatoires
+                    </div>
+
+                    <div className="text-center">
+                      <button 
+                        type="submit" 
+                        className="btn btn-primary px-4" 
+                        disabled={isSubmitting}
+                        style={{ backgroundColor: '#552b88', border: 'none' }}
+                      >
+                        {isSubmitting ? "Inscription en cours..." : "S'inscrire"}
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
+            <SnackbarAlert
+              open={snackbar.open}
+              message={snackbar.message}
+              severity={snackbar.severity}
+              onClose={handleSnackbarClose}
+            />
           </div>
         </div>
       </div>
-
-      {/* Snackbar for notifications */}
-      <SnackbarAlert
-        open={snackbar.open}
-        message={snackbar.message}
-        severity={snackbar.severity}
-        onClose={handleSnackbarClose}
-      />
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

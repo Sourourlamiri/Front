@@ -13,26 +13,26 @@ const Header = () => {
   // Récupération de l'utilisateur depuis le localStorage
   useEffect(() => {
     try {
-      const raw = localStorage.getItem('utilisateur');
+      const raw = localStorage.getItem('utilisateur');// Récupération de l'utilisateur depuis le localStorage
       const storedData = JSON.parse(raw);
       const userFromStorage = storedData?.utilisateur;
 
       console.log('userFromStorage STORAGE:', userFromStorage);
 
-      if (userFromStorage?.role === 'administrateur') {
+      if (userFromStorage?.role === 'administrateur') { // Vérification du rôle de l'utilisateur
         setUser(userFromStorage);
       }
     } catch (error) {
-      console.error('Erreur lors de la récupération de l\'utilisateur :', error);
+      console.error('Erreur lors de la récupération de l\'utilisateur :', error); // Gestion des erreurs lors de la récupération de l'utilisateur
     }
   }, []);
 
-  const logOut = () => {
+  const logOut = () => { // Fonction de déconnexion
     localStorage.clear();
     navigate('/homeVC');
   };
 
-  const handleLogoutConfirm = () => {
+  const handleLogoutConfirm = () => { // Fonction pour gérer la confirmation de déconnexion
     setShowLogoutModal(true); // Ouvrir la fenêtre de confirmation de déconnexion
   };
 

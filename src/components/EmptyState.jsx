@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * Component for displaying an empty state message
+ * Component et affiche un état vide avec un message et une icône.
  * 
  * @param {Object} props - Component props
  * @param {React.ReactNode} props.icon - Icon component to display

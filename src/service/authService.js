@@ -1,16 +1,17 @@
 import axiosContext from './axiosContext';
 
-// Token storage keys
+// Token et utilisateur keys pour localStorage
 const ACCESS_TOKEN_KEY = 'accessToken';
 const USER_KEY = 'user';
-const LEGACY_USER_KEY = 'utilisateur'; // Old storage key
+const LEGACY_USER_KEY = 'utilisateur'; // anncienne clé pour compatibilité ascendante
 
-// Helper functions for token management
+// Fonctions pour gérer les tokens et l'utilisateur dans localStorage
 const setTokens = (accessToken, user) => {
   localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
   localStorage.setItem(USER_KEY, JSON.stringify(user));
   
-  // For backward compatibility during migration, also store in old format
+  // Format legacy pour compatibilité ascendante
+  // Si l'ancien format existe, on le met à jour
   const legacyFormat = {
     accessToken,
     utilisateur: user
@@ -24,10 +25,11 @@ const clearTokens = () => {
   localStorage.removeItem(LEGACY_USER_KEY); // Also clear legacy format
 };
 
-// Migrate from old format to new format if needed
+//pour migrer de l'ancien format vers le nouveau
 const migrateFromLegacyFormat = () => {
   try {
-    // Check if we need to migrate from old format
+    // verifier si l'ancien format existe
+    // et si le nouveau format n'existe pas
     const legacyData = localStorage.getItem(LEGACY_USER_KEY);
     const newFormatToken = localStorage.getItem(ACCESS_TOKEN_KEY);
     
@@ -41,7 +43,7 @@ const migrateFromLegacyFormat = () => {
           userData.rôle = userData.role;
         }
         
-        // Migrate to new format
+        // modifier le format pour le nouveau système
         localStorage.setItem(ACCESS_TOKEN_KEY, parsedData.accessToken);
         localStorage.setItem(USER_KEY, JSON.stringify(userData));
         console.log('Migrated from legacy authentication format');
@@ -63,7 +65,7 @@ const isAuthenticated = () => {
   return !!token && !!user && !!user._id;
 };
 
-// Get current user data
+// recupérer l'utilisateur actuel
 const getCurrentUser = () => {
   migrateFromLegacyFormat(); // Check for legacy format
   
@@ -122,8 +124,8 @@ const logout = () => {
   return { success: true, redirectTo: '/homeVC' };
 };
 
-// Initialize auth - should be called when app starts
-const initAuth = () => {
+// Initialize authentication
+const initAuth = () => {  // ki t3awed ta3mil login ynadi initAuth bach y3awd y7ot les headers w ya3rfik enty chkoun .
   migrateFromLegacyFormat(); // Migrate from old format if needed
   
   const token = getAccessToken();

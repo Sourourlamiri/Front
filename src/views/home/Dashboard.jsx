@@ -34,7 +34,7 @@ import {
   Button
 } from '@mui/material';
 
-// Material UI Icons
+// Material UI icons
 import {
   WorkOutlined as JobIcon,
   DescriptionOutlined as ApplicationIcon,
@@ -67,25 +67,6 @@ import {
   Rectangle
 } from 'recharts';
 
-// React Simple Maps
-// import { ComposableMap, Geographies, Geography, Sphere, Graticule } from 'react-simple-maps';
-// import { scaleQuantile } from 'd3-scale';
-
-// Custom Tooltip for the map
-// const MapTooltipContent = ({ data }) => {
-//   if (!data) return null;
-//   return (
-//     <Paper elevation={3} sx={{ p: 1, backgroundColor: 'white', color: 'black', borderRadius: '4px' }}>
-//       <Typography variant="caption" display="block" fontWeight="bold">
-//         {data.name}
-//       </Typography>
-//       <Typography variant="caption" display="block">
-//         Candidats: {data.value || 0}
-//       </Typography>
-//     </Paper>
-//   );
-// };
-
 // Dashboard color palette
 const COLOR_PALETTE = {
   // Neutral base colors
@@ -117,7 +98,7 @@ const COLOR_PALETTE = {
   textLight: '#ffffff'
 };
 
-// Add color interpolation function for gradient
+// ajouter interpolation de couleur pour les barres
 const interpolateColor = (color1, color2, factor) => {
   const result = color1.slice();
   for (let i = 0; i < 3; i++) {
@@ -126,12 +107,12 @@ const interpolateColor = (color1, color2, factor) => {
   return `rgb(${result[0]}, ${result[1]}, ${result[2]})`;
 };
 
-// Function to convert hex to RGB
+// fonction pour convertir une couleur hexadécimale en RGB
 const hexToRgb = (hex) => {
-  // Remove # if present
+  //  supprimer le caractère '#' si présent
   hex = hex.replace('#', '');
 
-  // Parse the hex values
+  // vérifier la longueur de la chaîne hexadécimale
   const r = parseInt(hex.substring(0, 2), 16);
   const g = parseInt(hex.substring(2, 4), 16);
   const b = parseInt(hex.substring(4, 6), 16);
@@ -142,12 +123,6 @@ const hexToRgb = (hex) => {
 const Dashboard = () => {
   const theme = useTheme();
 
-  // Remove tooltip state for the map
-  // const [tooltipContent, setTooltipContent] = useState(null);
-  // const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
-  // const [tunisiaGeoJson, setTunisiaGeoJson] = useState(null);
-  // const [geoJsonError, setGeoJsonError] = useState(null);
-
   // Dashboard data states
   const [dashboardData, setDashboardData] = useState({
     totalJobOffers: 0,
@@ -157,7 +132,7 @@ const Dashboard = () => {
     error: null
   });
 
-  // Pie chart data for recruteurs and candidats
+  // Pie chart data pour  recruteurs et candidats
   const [recruitersAndCandidatesData, setRecruitersAndCandidatesData] = useState({
     data: [],
     loading: true,
@@ -171,7 +146,7 @@ const Dashboard = () => {
     error: null
   });
 
-  // Application status by recruiter
+  // Application status data (for bar chart)
   const [applicationStatusData, setApplicationStatusData] = useState({
     data: [],
     loading: true,
@@ -185,36 +160,16 @@ const Dashboard = () => {
     error: null
   });
 
-  // Remove Tunisia map data state
-  // const [tunisiaMapData, setTunisiaMapData] = useState({
-  //   data: {}, 
-  //   loading: true,
-  //   error: null
-  // });
+ 
 
-  const [snackbar, setSnackbar] = useState({
+  const [snackbar, setSnackbar] = useState({ // Snackbar state
     open: false,
     message: "",
     severity: "error"
   });
 
   useEffect(() => {
-    // Remove GeoJSON fetching
-    // const fetchGeoJson = async () => {
-    //   try {
-    //     const response = await fetch('/maps/tunisia.json');
-    //     if (!response.ok) {
-    //       throw new Error(`Failed to fetch GeoJSON: ${response.statusText}`);
-    //     }
-    //     const data = await response.json();
-    //     setTunisiaGeoJson(data);
-    //     console.log('Tunisia GeoJSON loaded successfully');
-    //   } catch (error) {
-    //     console.error('Error loading Tunisia GeoJSON:', error);
-    //     setGeoJsonError(error.message);
-    //   }
-    // };
-
+   // Function to fetch all dashboard data
     const fetchAllDashboardData = async () => {
       try {
         const [
@@ -297,16 +252,6 @@ const Dashboard = () => {
         }));
         setGeographicalData({ data: transformedTreemapData, loading: false, error: null });
 
-        // Remove Tunisia Map data processing
-        // const processedTunisiaMapData = {};
-        // rawGeoDataArray.forEach(location => {
-        //   const regionName = mapAddressToRegion(location.adresse);
-        //   if (regionName && regionName !== 'Autre') {
-        //     processedTunisiaMapData[regionName] = (processedTunisiaMapData[regionName] || 0) + (location.count || 0);
-        //   }
-        // });
-        // console.log('Data prepared for Tunisia Choropleth Map:', processedTunisiaMapData);
-        // setTunisiaMapData({ data: processedTunisiaMapData, loading: false, error: null });
 
         // Application Status Data
         let statusData = [];
@@ -351,16 +296,7 @@ const Dashboard = () => {
     fetchAllDashboardData();
   }, []);
 
-  // Remove mapAddressToRegion function
-  // const mapAddressToRegion = (address) => {
-  //   if (!address) return null;
-  //   // ... existing code ...
-  // };
-
-  // Remove handleRefreshGeoData function
-  // const handleRefreshGeoData = () => {
-  //   // ... existing code ...
-  // };
+  
 
   // Format application data for bar chart
   const getFormattedBarData = () => {
@@ -513,18 +449,7 @@ const Dashboard = () => {
     );
   };
 
-  // Remove color scale for Tunisia map
-  // const colorScale = scaleQuantile()
-  //   .domain(Object.values(tunisiaMapData.data).filter(d => d > 0)) 
-  //   .range([
-  //     // ... color range ...
-  //   ]);
-
-  // Remove TunisiaMapChart component
-  // const TunisiaMapChart = memo(() => {
-  //   // ... component code ...
-  // });
-
+  
   // Common card styles
   const cardStyles = {
     p: 3,
@@ -596,6 +521,10 @@ const Dashboard = () => {
             </Card>
           </Grid>
 
+
+
+
+
           <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
             <Card elevation={3} sx={{
               width: '100%',
@@ -627,6 +556,9 @@ const Dashboard = () => {
           </Grid>
         </Grid>
       </Box>
+
+
+
 
       {/* Second Row - Répartition des Utilisateurs and Répartition géographique des candidats */}
       <Grid container spacing={4} sx={{ mb: 5, width: '100%', display: 'flex', flexWrap: 'nowrap' }}>
@@ -667,6 +599,14 @@ const Dashboard = () => {
           </Paper>
         </Grid>
 
+
+
+
+
+
+
+
+
         {/* Treemap - Répartition géographique des candidats */}
         <Grid item xs={6} sx={{ width: '50%', flexShrink: 0 }}>
           <Paper elevation={3} sx={cardStyles}>
@@ -704,6 +644,9 @@ const Dashboard = () => {
           </Paper>
         </Grid>
       </Grid>
+
+
+
 
       {/* Third Row - Postes disponibles par recruteur and Offres les plus demandées */}
       <Grid container spacing={4} sx={{ mb: 5, width: '100%', display: 'flex', flexWrap: 'nowrap' }}>
@@ -752,7 +695,9 @@ const Dashboard = () => {
           </Paper>
         </Grid>
 
-        {/* Bar Chart - Offres les plus demandées */}
+
+
+        {/* Bar Chart - Nombre de candidatures par poste */}
         <Grid item xs={6} sx={{ width: '50%', flexShrink: 0 }}>
           <Paper elevation={3} sx={cardStyles}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
@@ -797,6 +742,9 @@ const Dashboard = () => {
           </Paper>
         </Grid>
       </Grid>
+
+
+
 
       {/* Fourth Row - Display application status data as Répartition géographique des candidats */}
       <Grid container spacing={4} sx={{ mb: 5, width: '100%' }}>

@@ -49,15 +49,24 @@ const ListeOffres = () => {
   const [selectedEntretienOffre, setSelectedEntretienOffre] = useState(null);
   const [dateFin, setDateFin] = useState("");
   const [link, setLink] = useState("");
+  // État pour le type d'entretien
+  const [selectedType, setSelectedType] = useState("");
+ const type = [
+  { _id: '1', nom: 'Présentiel' },
+  { _id: '2', nom: 'En ligne' }
+];
+
 
   const [entretien, setEntretien] = useState({
     titre: "",
     description: "",
+    type: "", //
     date: "",
     heure: "",
     statut: "Planifié",
     dateFin: "",
         link: "",
+        
 
     Offre: null,
     Recruteur: null,
@@ -280,6 +289,7 @@ const ListeOffres = () => {
     setEntretien({
       titre: "",
       description: "",
+      type: "",
       date: "",
       heure: "",
       statut: "Planifié",
@@ -858,6 +868,9 @@ const ListeOffres = () => {
               </Form.Select>
             </Form.Group>
 
+
+
+
             <Form.Group className="mb-3">
               <Form.Label>Description</Form.Label>
               <Form.Control
@@ -870,6 +883,36 @@ const ListeOffres = () => {
                 placeholder="Détails de l'entretien, sujets à aborder..."
               />
             </Form.Group>
+
+
+
+
+
+        <Form.Group className="mb-3">
+  <Form.Label>Type d'entretien</Form.Label>
+  <Form.Select
+    name="type"
+    value={entretien.type}
+    onChange={handleEntretienChange}
+    required
+  >
+    <option value="">-- Sélectionner le type d'entretien --</option>
+    {type.map((t) => (
+      <option key={t._id} value={t._id}>
+        {t.nom} {/* Affiche le nom du type, comme 'Présentiel', 'En ligne' */}
+      </option>
+    ))}
+  </Form.Select>
+</Form.Group>
+
+
+
+
+
+
+
+
+
 
             <Row className="mb-3">
               <Col md={6}>

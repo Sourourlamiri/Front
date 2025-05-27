@@ -1,5 +1,5 @@
 // components/footer.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaHeart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './footer.css';
@@ -17,10 +17,16 @@ import './footer.css';
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
-  // State to track which icon is being hovered
   const [hoveredIcon, setHoveredIcon] = useState(null);
   
-  // Inline styles as a fallback in case CSS doesn't load
+  useEffect(() => {
+    // Modifier dynamiquement le lien Contact pour ouvrir le mail
+    const contactLink = document.querySelector('.footer-links a[href="#contact"]');
+    if (contactLink) {
+      contactLink.setAttribute('href', 'https://web.whatsapp.com/');
+    }
+  }, []);
+  
   const styles = {
     footer: {
       backgroundColor: '#f8f9fa',
@@ -110,13 +116,32 @@ const Footer = () => {
       fontSize: '0.7rem'
     }
   };
-  
-  // Define social media icons with their keys
+
   const socialIcons = [
-    { key: 'facebook', icon: <FaFacebookF />, label: 'Facebook' },
-    { key: 'twitter', icon: <FaTwitter />, label: 'Twitter' },
-    { key: 'instagram', icon: <FaInstagram />, label: 'Instagram' },
-    { key: 'linkedin', icon: <FaLinkedinIn />, label: 'LinkedIn' }
+    {
+      key: 'facebook',
+      icon: <FaFacebookF />,
+      label: 'Facebook',
+      url: 'https://www.facebook.com/'
+    },
+    {
+      key: 'twitter',
+      icon: <FaTwitter />,
+      label: 'Twitter',
+      url: 'https://twitter.com/'
+    },
+    {
+      key: 'instagram',
+      icon: <FaInstagram />,
+      label: 'Instagram',
+      url: 'https://www.instagram.com/'
+    },
+    {
+      key: 'linkedin',
+      icon: <FaLinkedinIn />,
+      label: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/'
+    }
   ];
   
   return (
@@ -125,21 +150,23 @@ const Footer = () => {
         <div className="footer-brand">
           <div className="logo" style={styles.logo}>
             <span className="accent" style={styles.accent}>Recruit</span>Ease
-            </div>
           </div>
-          
+        </div>
+        
         <div className="footer-links" style={styles.links}>
           <Link to="/homeVC" style={styles.link}>Accueil</Link>
           <Link to="/VoirOffres" style={styles.link}>Offres</Link>
           <Link to="/entreprises" style={styles.link}>Entreprises</Link>
           <a href="#contact" style={styles.link}>Contact</a>
-          </div>
-          
+        </div>
+        
         <div className="footer-social" style={styles.social}>
           {socialIcons.map(item => (
             <a 
               key={item.key}
-              href="#" 
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label={item.label}
               style={styles.socialIcon(hoveredIcon === item.key)}
               onMouseEnter={() => setHoveredIcon(item.key)}

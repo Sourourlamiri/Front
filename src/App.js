@@ -149,6 +149,7 @@ function App() {
           <Route
             path="/homerecruteur/profilrecruteur"
             element={<Profilrecruteur />}
+            
           />
           <Route
             path="/homerecruteur/listeCandidatsRecruteur/:id"

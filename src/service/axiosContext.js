@@ -7,13 +7,16 @@ const axiosContext = axios.create({
     }
 });
 
-// Add request interceptor to add token to requests
+// ajout d'un intercepteur de requête pour ajouter le token d'accès
+// Add request interceptor to include access token in headers
 axiosContext.interceptors.request.use(
     (config) => {
-        // Get token from localStorage
+        // recupérer le token d'accès depuis le stockage local
+        // Retrieve access token from local storage
         const token = localStorage.getItem('accessToken');
         
-        // If token exists, add to headers
+        // si le token existe, l'ajouter aux en-têtes de la requête
+        // If token exists, add it to the request headers
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
@@ -25,29 +28,29 @@ axiosContext.interceptors.request.use(
     }
 );
 
-// Add response interceptor to handle errors
+// ajout d'un intercepteur de réponse pour gérer les erreurs
 axiosContext.interceptors.response.use(
     (response) => {
         return response;
     },
     (error) => {
-        // Handle 401 Unauthorized errors
+        // Handle errors globally
         if (error.response && error.response.status === 401) {
             console.log("Auth error: Unauthorized request (401)", error.config?.url);
             
-            // Clear tokens as they are invalid
+            // si l'erreur est 401, supprimer le token d'accès et rediriger vers la page de connexion
             localStorage.removeItem('accessToken');
             localStorage.removeItem('user');
             localStorage.removeItem('utilisateur');
             
-            // Redirect to login with return URL
+            //rediriger vers la page de connexion
             if (window.location.pathname !== '/login') {
                 const currentPath = window.location.pathname;
                 console.log("Redirecting to login from:", currentPath);
                 window.location.href = `/login?redirect=${encodeURIComponent(currentPath)}`;
             }
         } else if (error.response) {
-            // Log other server errors
+            // login error: The request was made and the server responded with a status code
             console.error(`API Error ${error.response.status}:`, error.response.data);
         } else if (error.request) {
             // The request was made but no response was received

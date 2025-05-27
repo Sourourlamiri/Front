@@ -407,7 +407,7 @@ const MesCandidatures = () => {
                   <Button
                     variant="contained"
                     color="primary"
-                    href="/offre"
+                    href="/VoirOffres"
                     sx={{ mt: 1 }}
                   >
                     Découvrir les offres

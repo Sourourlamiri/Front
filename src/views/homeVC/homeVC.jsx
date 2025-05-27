@@ -187,7 +187,7 @@ const HomeVC = () => {
                       <h1>Trouvez votre emploi idéal</h1>
                       <p>Des milliers d'opportunités professionnelles vous attendent</p>
                       {!user ? (
-                        <Link to="/register" className="carousel-button">
+                        <Link to="/registerPage" className="carousel-button">
                           <span>Commencer maintenant</span>
                           <FaArrowRight />
                         </Link>
@@ -206,6 +206,7 @@ const HomeVC = () => {
     <img
                     className="d-block w-100"
       src="/assets/images/backgrounds/v2.jpg"
+      
       alt="Deuxième slide"
     />
                   <div className="carousel-overlay">
@@ -533,7 +534,7 @@ const HomeVC = () => {
                     
                     <div className="value-cta">
                       {!user ? (
-                        <Link to="/register" className="register-button">
+                        <Link to="/registerPage" className="register-button">
                           Créer un compte gratuitement
                         </Link>
                       ) : (
@@ -547,7 +548,8 @@ const HomeVC = () => {
                 
                 <div className="col-md-6 d-none d-md-block">
                   <div className="value-image">
-                    <img src="/assets/images/backgrounds/recruitment.jpg" alt="RecruitEase Platform" />
+                    <img src="\assets\images\backgrounds/aa.jpg" alt="RecruitEase Platform"
+                     style={{ height: '80%', width: '100%', objectFit: 'cover' }}  />
                   </div>
                 </div>
               </div>

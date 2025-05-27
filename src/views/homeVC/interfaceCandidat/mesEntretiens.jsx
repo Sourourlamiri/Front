@@ -127,7 +127,7 @@ const MesEntretiens = () => {
         .catch((error) => {
           console.error("Erreur lors du chargement des entretiens:", error);
           setError(
-            "Impossible de charger vos entretiens. Veuillez réessayer plus tard."
+            "Aucun entretien trouvée.."
           );
           setLoading(false);
 
@@ -180,7 +180,7 @@ const MesEntretiens = () => {
       .catch((error) => {
         console.error("Erreur lors du chargement des candidatures:", error);
         setError(
-          "Impossible de charger vos entretiens. Veuillez réessayer plus tard."
+          "Aucun entretien trouvée.."
         );
         setLoading(false);
       });
@@ -704,7 +704,7 @@ const MesEntretiens = () => {
                                 Type d'entretien
                               </Typography>
                               <Typography variant="body1">
-                                {currentEntretien.type || "Non spécifié"}
+                                {currentEntretien.type || "en ligne"}
                               </Typography>
                             </Box>
                           </Box>

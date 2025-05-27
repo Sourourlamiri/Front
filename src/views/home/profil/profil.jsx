@@ -95,19 +95,7 @@ const Profil = () => {
                     onChange={onChangeHandler}
                   />
                 </div>
-                <div className="mb-3">
-                  <label htmlFor="prenom" className="form-label">
-                    Prénom
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="prenom"
-                    name="Prenom"
-                    value={data?.Prénom || ""}
-                    onChange={onChangeHandler}
-                  />
-                </div>
+              
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">
                     E-mail
@@ -143,7 +131,7 @@ const Profil = () => {
                     className="form-control"
                     id="telephone"
                     name="Telephone"
-                    value={data?.Téléphone || ""}
+                    value={data?.Telephone || ""}
                     onChange={onChangeHandler}
                   />
                 </div>

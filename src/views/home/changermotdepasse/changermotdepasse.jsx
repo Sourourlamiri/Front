@@ -67,7 +67,7 @@ const ChangerMotDePasse = () => {
       });
       console.log("Réponse du serveur :", response.data);
 
-      // Reset fields after successful password change
+      // Réinitialiser les champs du formulaire
       setMotDePasse("");
       setNewPassword("");
       setConfirmPassword("");
@@ -99,7 +99,7 @@ const ChangerMotDePasse = () => {
       <div className="card changer-mdp-card">
         <div className="card-body">
           <h5 className="card-title text-center mb-4">
-            Changer le mot de passe
+            Changer  mot de passe
           </h5>
 
           <form onSubmit={handleSubmit}>
