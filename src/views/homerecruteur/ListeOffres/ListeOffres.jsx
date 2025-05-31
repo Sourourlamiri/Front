@@ -197,7 +197,7 @@ const ListeOffres = () => {
       toast.success("Offre supprimée avec succès !");
     } catch (error) {
       console.error("Erreur lors de la suppression de l'offre :", error);
-      toast.error("Erreur lors de la suppression de l'offre.");
+      toast.error("Erreur ne peut pas être supprimée car des candidats ont déjà postulé.");
     }
   };
 

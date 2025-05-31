@@ -113,7 +113,7 @@ const MesEntretiens = () => {
                 ? {
                     id: entretien.Offre._id,
                     titre: entretien.Offre.titre,
-                    entreprise: entretien.Recruteur.Nom,
+                    entreprise: entretien.Recruteur.NomEntreprise,
                     recruteur: entretien.Offre.Recruteur,
                   }
                 : null,
@@ -528,7 +528,7 @@ const MesEntretiens = () => {
                           style={{ marginRight: "8px", opacity: 0.7 }}
                         />
                         <Typography variant="body2" color="text.secondary">
-                          {entretien.offre?.entreprise ||
+                          {entretien.offre?.entreprise||
                             "Entreprise non spécifiée"}
                         </Typography>
                       </Box>
@@ -547,23 +547,7 @@ const MesEntretiens = () => {
                             </Typography>
                           </Box>
                         </Grid>
-                        <Grid item xs={6}>
-                          <Box display="flex" alignItems="center">
-                            <FiMapPin
-                              size={16}
-                              style={{ marginRight: "8px", opacity: 0.7 }}
-                            />
-                            <Typography
-                              variant="body2"
-                              color="text.secondary"
-                              noWrap
-                            >
-                              {entretien.lieu ||
-                                entretien.type ||
-                                "Non spécifié"}
-                            </Typography>
-                          </Box>
-                        </Grid>
+                        
                       </Grid>
 
                       <Box mt={2}>
@@ -582,6 +566,11 @@ const MesEntretiens = () => {
               ))}
             </Grid>
           )}
+
+
+
+
+          
 
           {/* Interview Details Dialog */}
           <Dialog
@@ -652,44 +641,9 @@ const MesEntretiens = () => {
                             </Box>
                           </Box>
 
-                          <Box display="flex" alignItems="flex-start" gap={2}>
-                            <FiClock
-                              size={20}
-                              style={{ color: "#5C6BC0", marginTop: "2px" }}
-                            />
-                            <Box>
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
-                              >
-                                Durée
-                              </Typography>
-                              <Typography variant="body1">
-                                {calculateDuration(
-                                  currentEntretien.date,
-                                  currentEntretien.dateFin
-                                ) || "Non spécifiée"}
-                              </Typography>
-                            </Box>
-                          </Box>
+                          
 
-                          <Box display="flex" alignItems="flex-start" gap={2}>
-                            <FiMapPin
-                              size={20}
-                              style={{ color: "#5C6BC0", marginTop: "2px" }}
-                            />
-                            <Box>
-                              <Typography
-                                variant="body2"
-                                color="text.secondary"
-                              >
-                                Lieu
-                              </Typography>
-                              <Typography variant="body1">
-                                {currentEntretien.lieu || "Non spécifié"}
-                              </Typography>
-                            </Box>
-                          </Box>
+                        
 
                           <Box display="flex" alignItems="flex-start" gap={2}>
                             <FiVideo

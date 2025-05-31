@@ -41,6 +41,7 @@ const RegisterCandidat = () => {
       setData({ ...data, image: file });
       setErrors({ ...errors, image: null });
     }
+    
   };
 
   // Gestion des champs du formulaire

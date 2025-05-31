@@ -61,9 +61,9 @@ const DetailEntreprise = () => {
   const [averageRating, setAverageRating] = useState(0);
 
   // Get the current user from authService
-  const user = authService.getCurrentUser();
+  const user = authService.getCurrentUser(); //utlisateur connecté
 
-  useEffect(() => {
+  useEffect(() => { // Fetch recruteur details by ID
     const fetchRecruteurDetails = async () => {
       try {
         setIsLoading(true);
@@ -376,7 +376,7 @@ const DetailEntreprise = () => {
   };
 
   // Enhanced star rating renderer with custom styles
-  const renderStarRating = (rating) => {
+  const renderStarRating = (rating) => { 
     return (
       <div style={avisStyles.starRating}>
         {[...Array(5)].map((_, i) => (
@@ -590,14 +590,17 @@ const DetailEntreprise = () => {
               <Tab.Content>
                 <Tab.Pane eventKey="info">
                   <div className="about-section">
-                    <h4 className="mb-3">À propos de {recruteur.Nom}</h4>
+                    <h4 className="mb-3">À propos de {recruteur.NomEntreprise}</h4>
 
-                    <div className="company-description mb-4">
-                      <p>
-                        {recruteur.description ||
-                          "Aucune description disponible pour cette entreprise."}
-                      </p>
-                    </div>
+                   <div className="company-description mb-4">
+  <p>
+    {recruteur.description ||
+      `Fondée avec la volonté de répondre aux besoins spécifiques de ses clients, cette entreprise s'est imposée comme un acteur incontournable dans son domaine d'activité. Elle se distingue par son engagement envers la qualité, l'innovation et la satisfaction client. Grâce à une équipe expérimentée et des solutions adaptées, l’entreprise continue d’évoluer pour offrir des services à forte valeur ajoutée, tout en respectant des standards élevés en matière d’éthique et de responsabilité sociale.
+
+Que ce soit à travers ses produits, ses services ou ses partenariats, l'entreprise place l'humain, la performance et l'excellence au cœur de sa stratégie.`}
+  </p>
+</div>
+
 
                     <div className="row">
                       <div className="col-md-6 mb-4">
@@ -612,7 +615,7 @@ const DetailEntreprise = () => {
                                 Nom de l'entreprise
                               </span>
                               <span className="info-value">
-                                {recruteur.Nom}
+                                {recruteur.NomEntreprise || "Non spécifié"}
                               </span>
                             </div>
                             {recruteur.dateCreation && (
@@ -704,7 +707,7 @@ const DetailEntreprise = () => {
                   <div className="jobs-section">
                     <div className="d-flex justify-content-between align-items-center mb-4">
                       <h4 className="mb-0">
-                        Offres d'emploi de {recruteur.Nom}
+                        Offres d'emploi de {recruteur.NomEntreprise}
                       </h4>
                     </div>
 

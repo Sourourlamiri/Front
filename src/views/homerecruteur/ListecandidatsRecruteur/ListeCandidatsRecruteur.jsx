@@ -12,6 +12,7 @@ const ListeCandidatsRecruteur = () => {
   const [offre, setOffre] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showIAResult, setShowIAResult] = useState(false);
+  const [recId, setRecId] = useState(null);
 
   useEffect(() => {
     const fetchOffre = async () => {
@@ -20,6 +21,7 @@ const ListeCandidatsRecruteur = () => {
         console.log('Détails de l\'offre:', response.data.getOffre);
         setOffre(response.data.getOffre);
         console.log(response.data);
+        setRecId(response.data.getOffre.recruteur._id)
       } catch (error) {
         console.error('Erreur lors de la récupération des détails de l\'offre', error);
       }
@@ -28,10 +30,10 @@ const ListeCandidatsRecruteur = () => {
     fetchOffre();
   }, [id]);
 
-  const fetchCandidats = async () => {
+  const fetchCandidats = async (idr,ido) => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/match_score");
+      const response = await fetch("http://localhost:5000/match_score/"+idr+"/"+ido);
       const data = await response.json();
 
       const idCondidats = data.data.map((c) => ({
@@ -67,7 +69,7 @@ const ListeCandidatsRecruteur = () => {
       // Remove duplicates by cv_id
       const candidaturesUniques = candidatures.filter(
         (item, index, self) =>
-          index === self.findIndex((c) =>  c.candidatDetails!=null && c.candidatDetails?.Email === item.candidatDetails?.Email)
+          index === self.findIndex((c) => c.candidatDetails != null && c.candidatDetails?.Email === item.candidatDetails?.Email)
       );
       console.log('Candidatures récupérées:', candidaturesUniques);
 
@@ -171,8 +173,14 @@ const ListeCandidatsRecruteur = () => {
   };
 
   const handleRunIA = () => {
+
+
+
+ 
     setShowIAResult(true);
-    fetchCandidats();
+    fetchCandidats(recId,id);
+
+    
   };
 
   const renderActionButtons = (candidature, id) => {
@@ -286,7 +294,7 @@ const ListeCandidatsRecruteur = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {offre.Candidature.filter(cand => cand?.Candidat?.[0]!=null).map((cand, index) => {
+                      {offre.Candidature.filter(cand => cand?.Candidat?.[0] != null).map((cand, index) => {
                         const candidat = cand?.Candidat?.[0];
                         return (
                           <tr key={index} className="border-bottom">
